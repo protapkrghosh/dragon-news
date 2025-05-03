@@ -19,6 +19,10 @@
    font-family: "Poppins", sans-serif;
 }
 
-.active {
+nav .active {
    @apply text-secondary font-medium
+}
+
+.category_nav .active {
+   @apply bg-base-300
 }
