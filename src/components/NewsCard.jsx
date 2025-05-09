@@ -80,18 +80,21 @@ const NewsCard = ({ news }) => {
             </p>
 
             <div className="flex items-center justify-between mt-5 pb-2 text-sm text-gray-600">
+               {/* Rating */}
                <div className="flex items-center gap-1">
-                  <MdStarRate className="text-yellow-500" />
-                  <MdStarRate className="text-yellow-500" />
-                  <MdStarRate className="text-yellow-500" />
-                  <MdStarRate className="text-yellow-500" />
-                  <MdStarRate className="text-yellow-500 mr-1" />
-                  <span>{rating?.number}</span>
+                  {Array.from({ length: rating.number }).map((_, i) => (
+                     <MdStarRate
+                        key={i}
+                        size={18}
+                        className="text-yellow-500"
+                     />
+                  ))}
+                  <span className="font-medium">{rating?.number}</span>
                </div>
 
                <div className="flex items-center gap-2">
                   <FaEye />
-                  <span>{total_view}</span>
+                  <span className="font-medium">{total_view}</span>
                </div>
             </div>
          </div>
