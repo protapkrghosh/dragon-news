@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Login = () => {
+   const { logInUser } = useContext(AuthContext);
+
+   const handleLogIn = (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
+
+      logInUser(email, password)
+         .then((result) => {
+            toast.success("Login Successfully");
+         })
+         .catch((error) => {
+            toast.error(error.message);
+         });
+   };
+
    return (
       <div className="card bg-white w-full max-w-md shrink-0 shadow-sm mx-auto mt-10 pt-10 pb-5">
          <h1 className="text-2xl text-gray-700 text-center font-semibold">
@@ -11,7 +30,7 @@ const Login = () => {
          <hr className="w-10/12 mx-auto border-base-300 mt-6" />
 
          <div className="card-body">
-            <fieldset className="fieldset px-3 md:px-6">
+            <form onSubmit={handleLogIn} className="fieldset px-3 md:px-6">
                <label className="label text-[14px] text-primary font-medium">
                   Email Address
                </label>
@@ -44,7 +63,7 @@ const Login = () => {
                   value="login"
                   className="btn btn-primary mt-4"
                />
-            </fieldset>
+            </form>
 
             <small className="text-accent font-medium text-center mt-2">
                Don't Have An Account?{" "}

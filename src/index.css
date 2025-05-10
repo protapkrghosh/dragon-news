@@ -19,7 +19,7 @@
    font-family: "Poppins", sans-serif;
 }
 
-nav .active {
+.nav .active {
    @apply text-secondary font-medium
 }
 
