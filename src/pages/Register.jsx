@@ -1,27 +1,44 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Register = () => {
-   const { user, createUser } = useContext(AuthContext);
-   console.log(user);
+   const [nameError, setNameError] = useState("");
+   const { setUser, createUser, updateUser } = useContext(AuthContext);
+   const location = useLocation();
+   const navigate = useNavigate();
 
    const handleRegister = (e) => {
       e.preventDefault();
       const form = e.target;
       const name = form.name.value;
+      if (name.length < 5) {
+         setNameError("Name should be more then 5 character");
+         return;
+      } else {
+         setNameError("");
+      }
       const photoURL = form.photoURL.value;
       const email = form.email.value;
       const password = form.password.value;
-      // console.log({ name, photoURL, email, password });
 
       createUser(email, password)
          .then((result) => {
+            const user = result.user;
             toast.success("Register Successful");
+            navigate(location?.state || "/");
+
+            updateUser({ displayName: name, photoURL: photoURL })
+               .then(() => {
+                  setUser({ ...user, displayName: name, photoURL: photoURL });
+               })
+               .catch((error) => {
+                  toast.error(error.code);
+               });
          })
          .catch((error) => {
-            toast.error(error.message);
+            toast.error(error.code);
          });
    };
 
@@ -45,6 +62,12 @@ const Register = () => {
                   placeholder="Enter your name"
                   required
                />
+
+               {nameError && (
+                  <small className="text-red-500 text-[12px]">
+                     {nameError}
+                  </small>
+               )}
 
                <label className="label text-[14px] text-primary font-medium">
                   Photo URL

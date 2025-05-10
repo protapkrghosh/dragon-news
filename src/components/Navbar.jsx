@@ -28,7 +28,7 @@ const Navbar = () => {
          </div>
 
          <div className="flex justify-end items-center gap-3">
-            <img src={userImg} alt="User" />
+            <img src={user ? user?.photoURL : userImg} alt="User" className="w-14 h-14 rounded-full" />
 
             {user ? (
                <button

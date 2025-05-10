@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const Login = () => {
+   const [error, setError] = useState("");
    const { logInUser } = useContext(AuthContext);
+   const location = useLocation();
+   const navigate = useNavigate();
 
    const handleLogIn = (e) => {
       e.preventDefault();
@@ -12,12 +15,15 @@ const Login = () => {
       const email = form.email.value;
       const password = form.password.value;
 
+      setError("");
       logInUser(email, password)
          .then((result) => {
             toast.success("Login Successfully");
+            navigate(location?.state || "/");
          })
          .catch((error) => {
-            toast.error(error.message);
+            setError(error.code);
+            toast.error(error.code);
          });
    };
 
@@ -57,6 +63,10 @@ const Login = () => {
                <div className="mt-2">
                   <a className="link link-hover">Forgot password?</a>
                </div>
+
+               {error && (
+                  <small className="text-red-500 text-[12px]">{error}</small>
+               )}
 
                <input
                   type="submit"
