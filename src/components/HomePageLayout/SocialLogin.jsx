@@ -6,12 +6,23 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 
 const SocialLogin = () => {
-   const { googleLogin } = useContext(AuthContext);
+   const { googleLogin, gitHubLogin } = useContext(AuthContext);
    const location = useLocation();
    const navigate = useNavigate();
 
    const handleGoogleLogin = () => {
       googleLogin()
+         .then((result) => {
+            toast.success("Login Successful");
+            navigate(location?.state || "/");
+         })
+         .catch((error) => {
+            toast.error(error.code);
+         });
+   };
+
+   const handleGitHubLogin = () => {
+      gitHubLogin()
          .then((result) => {
             toast.success("Login Successful");
             navigate(location?.state || "/");
@@ -32,7 +43,7 @@ const SocialLogin = () => {
             <FcGoogle size={23} /> Login with Google
          </button>
 
-         <button className="socialBtn text-primary">
+         <button onClick={handleGitHubLogin} className="socialBtn text-primary">
             <FaGithub size={22} /> Login with GitHub
          </button>
       </div>
