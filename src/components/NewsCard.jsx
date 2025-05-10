@@ -3,9 +3,11 @@ import { FaEye } from "react-icons/fa";
 import { MdStarRate } from "react-icons/md";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaRegBookmark } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
    const {
+      id,
       title,
       rating,
       total_view,
@@ -70,9 +72,9 @@ const NewsCard = ({ news }) => {
                {details.length > 200 ? (
                   <>
                      {details.slice(0, 200)}...{" "}
-                     <button className="link link-hover text-secondary font-medium">
+                     <Link to={`/news-details/${id}`} className="link link-hover text-secondary font-medium">
                         Read More
-                     </button>
+                     </Link>
                   </>
                ) : (
                   details
