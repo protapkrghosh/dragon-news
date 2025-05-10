@@ -8,7 +8,7 @@ const Login = () => {
             Login Your Account
          </h1>
 
-         <hr className="w-10/12 mx-auto border-base-300 mt-6"/>
+         <hr className="w-10/12 mx-auto border-base-300 mt-6" />
 
          <div className="card-body">
             <fieldset className="fieldset px-3 md:px-6">
@@ -17,8 +17,10 @@ const Login = () => {
                </label>
                <input
                   type="email"
+                  name="email"
                   className="input mb-3 text-[13px] w-full bg-base-200 border-0 focus:outline-0"
                   placeholder="Enter your email address"
+                  required
                />
 
                <label className="label text-[14px] text-primary font-medium">
@@ -27,15 +29,21 @@ const Login = () => {
 
                <input
                   type="password"
+                  name="password"
                   className="input text-[13px] w-full bg-base-200 border-0 focus:outline-0"
                   placeholder="Enter your password"
+                  required
                />
 
                <div className="mt-2">
                   <a className="link link-hover">Forgot password?</a>
                </div>
 
-               <button className="btn btn-primary mt-4">Login</button>
+               <input
+                  type="submit"
+                  value="login"
+                  className="btn btn-primary mt-4"
+               />
             </fieldset>
 
             <small className="text-accent font-medium text-center mt-2">
